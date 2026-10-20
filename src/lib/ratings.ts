@@ -2,8 +2,8 @@
  * Pure formatting helpers for game star ratings.
  *
  * Kept framework-free and side-effect-free so the logic is unit-testable
- * without the Astro runtime (see `ratings.test.ts`). Consumed by the
- * `StarRating.astro` component.
+ * without the Astro runtime (see `ratings.test.ts`). Consumed by Astro rating
+ * components such as `StarRating.astro` and `GameCard.astro`.
  */
 
 /**
@@ -11,6 +11,14 @@
  */
 export function clampRating(rating: number): number {
     return Math.min(5, Math.max(0, rating));
+}
+
+/**
+ * Formats a numeric game rating on a five-star scale, or the empty-state label.
+ */
+export function formatRatingOutOfFive(rating: number | null): string {
+    if (rating === null) return 'No rating yet';
+    return `${clampRating(rating).toFixed(1)} / 5`;
 }
 
 /**
